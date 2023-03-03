@@ -1,0 +1,65 @@
+ .Card-Tools {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+     max-height: var(--medium-font-size);
+ }
+
+ .Card-Tools .Memo-Button {
+     max-height: inherit;
+ }
+
+ .Card-Data {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-end;
+ }
+
+ .Card-Tools svg {
+     max-height: inherit;
+     width: fit-content;
+ }
+
+ .Card {
+     display: flex;
+     flex-direction: row;
+     border-bottom: 1px solid var(--main-color);
+     align-items: center;
+     max-height: 10vh;
+ }
+
+ .Card-Text {
+     max-height: inherit;
+     text-overflow: ellipsis;
+     overflow: hidden;
+ }
+
+ .Card-Text-Value {
+     text-overflow: ellipsis;
+     width: 100%;
+     overflow: hidden;
+     height: var(--medium-font-size);
+ }
+
+ .Card-Text-Translation {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    height: var(--small-font-size);
+}
+
+ .Small {
+     font-size: var(--small-font-size);
+ }
+
+ .Card:last-of-type {
+     border-bottom: none;
+ }
+
+ .Card-Text,
+ .Card-Date {
+     flex: 1;
+     align-items: center;
+ }

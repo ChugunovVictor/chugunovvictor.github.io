@@ -1,0 +1,115 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.animation-fade-in {
+  animation: fadeIn 0.125s ease;
+}
+
+.animation-fade-out {
+  animation: fadeOut 0.125s ease;
+}
+
+.Fade {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: var(--main-bg-color);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.invisible {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.Undecorated {
+  animation: fadeOut 0.5s ease;
+  animation-fill-mode: forwards;
+}
+
+.Button:active .svg-border {
+  stroke-width: 2px;
+}
+
+.Memo-Button:active {
+  border-width: 5px !important;
+}
+
+@keyframes RotatefadeOut {
+  0% {
+    margin-left: 0px;
+  }
+
+  100% {
+    margin-left: calc(var(--header-height)*2);
+  }
+}
+
+.Rotate-Decoration {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: RotatefadeOut 0.5s ease;
+  animation-fill-mode: forwards;
+  background-image: linear-gradient(to right, rgba(255, 0, 0, 0), var(--main-bg-color), var(--main-bg-color));
+}
+
+@keyframes SlideDown {
+  0% {
+    transform: translate(0);
+  }
+
+  100% {
+    transform: translate(0, var(--medium-font-size));
+  }
+}
+
+.Slide-Down {
+  animation: SlideDown 0.125s ease;
+}
+
+@keyframes SlideUp {
+  0% {
+    transform: translate(0);
+  }
+
+  100% {
+    transform: translate(0, calc(-1 * var(--medium-font-size)));
+  }
+}
+
+.Slide-Up {
+  animation: SlideUp 0.125s ease;
+}

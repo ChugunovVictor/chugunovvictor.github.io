@@ -1,0 +1,440 @@
+@import './tables.css';
+@import './theme.scss';
+@import './animations.css';
+
+@font-face {
+  font-family: Ubuntu;
+  src: url(../assets/fonts/Ubuntu/Ubuntu-Regular.ttf);
+}
+
+@font-face {
+  font-family: MarckScript;
+  src: url(../assets/fonts//Marck_Script/MarckScript-Regular.ttf);
+}
+
+.svg-border {
+  stroke-width: 0.25px;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.Root {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--main-font);
+  color: var(--main-color);
+
+  .Header {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-height: var(--header-height);
+    border-color: var(--main-color);
+
+    .Title {
+      flex: 1;
+      white-space: nowrap;
+      font-size: var(--big-font-size);
+      margin: 5px;
+    }
+
+    .Button {
+      height: var(--header-height);
+      width: var(--header-height);
+    }
+  }
+
+  .Content {
+    flex: 1;
+    max-width: 100%;
+    padding: 10px;
+    overflow: hidden;
+  }
+}
+
+svg {
+  stroke: var(--main-color);
+  fill: var(--main-color);
+}
+
+@media (orientation: portrait) {
+  .Root {
+    --header-height: 10vh;
+    --big-font-size: 7vh;
+    --medium-font-size: 5vh;
+    --small-font-size: 3vh;
+    --textarea-height: 25vh;
+    --calendar-height: 15vh;
+    --textarea-width: 94vw;
+
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+@media (orientation: landscape) {
+  .Root {
+    --header-height: 10vw;
+    --big-font-size: 7vw;
+    --medium-font-size: 5vw;
+    --small-font-size: 3vw;
+    --textarea-height: 25vw;
+    --calendar-height: 15vw;
+    --textarea-width: 94vh;
+
+    transform-origin: center;
+    transform: rotate(-90deg);
+    height: 100vw;
+    width: 100vh;
+  }
+}
+
+.Home,
+.Settings {
+  flex: 1;
+  font-size: var(--medium-font-size);
+  display: flex;
+  flex-direction: column;
+  max-width: inherit;
+
+  svg {
+    stroke: none !important;
+  }
+
+  .Memo-Button {
+    flex: 1;
+    border: 0.1px solid var(--main-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    margin-bottom: 10px;
+  }
+
+  .Memo-Button:last-of-type {
+    margin-bottom: unset;
+  }
+
+  select {
+    max-width: inherit;
+    margin-bottom: 10px;
+  }
+}
+
+.Decorated {
+  position: relative;
+  margin-bottom: 10px;
+
+  .Decoration {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../assets/images/noise.svg);
+    flex: 1;
+    max-width: var(--textarea-width);
+    width: var(--textarea-width);
+    max-height: var(--textarea-height);
+    height: var(--textarea-height);
+    border: 0.1px solid var(--main-color);
+    border-radius: 20px;
+  }
+
+  .Decoration-Background {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--main-bg-color);
+    flex: 1;
+    max-width: var(--textarea-width);
+    width: var(--textarea-width);
+    max-height: var(--textarea-height);
+    height: var(--textarea-height);
+  }
+}
+
+.Add {
+  flex: 1;
+  font-size: var(--medium-font-size);
+  display: flex;
+  flex-direction: column;
+
+  .Value {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    textarea {
+      flex: 1;
+      display: block;
+      border: 0.1px solid var(--main-color);
+      border-radius: 20px;
+      font-size: var(--medium-font-size);
+      overflow: auto;
+      max-width: var(--textarea-width);
+      width: var(--textarea-width);
+      max-height: var(--textarea-height);
+      height: var(--textarea-height);
+    }
+  }
+
+  svg {
+    align-self: center;
+  }
+}
+
+
+.Edit {
+  flex: 1;
+  font-size: var(--medium-font-size);
+  display: flex;
+  flex-direction: column;
+
+  .Value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    textarea {
+      flex: 1;
+      display: block;
+      border: 0.1px solid var(--main-color);
+      border-radius: 20px;
+      font-size: var(--medium-font-size);
+      overflow: auto;
+      max-width: var(--textarea-width);
+      width: var(--textarea-width);
+      max-height: var(--calendar-height);
+      height: var(--calendar-height);
+    }
+  }
+
+  svg {
+    align-self: center;
+  }
+
+  .Clock {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: calc(var(--medium-font-size)*3);
+    margin-bottom: 10px;
+
+    .Clock-Button {
+      max-height: var(--big-font-size);
+      max-width: var(--big-font-size);
+    }
+
+    .Toggled .svg-border {
+      stroke-width: 2px;
+    }
+  }
+}
+
+
+.Calendar {
+  font-size: var(--medium-font-size);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .Calendar-Slider {
+    display: flex;
+    flex-direction: column;
+
+    .Button {
+      height: var(--medium-font-size);
+    }
+
+    .Button:first-of-type {
+      transform: rotate(180deg);
+    }
+
+    .Calendar-Entries {
+      height: var(--medium-font-size);
+      max-height: var(--medium-font-size);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 10px;
+      justify-content: center;
+    }
+
+
+  }
+
+  .Calendar-Slider:nth-of-type(2) {
+    border-left: 0.1px solid var(--main-color);
+    border-right: 0.1px solid var(--main-color);
+  }
+}
+
+.Cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--medium-font-size);
+  max-height: 100%;
+  height: 100%;
+
+  .Filter{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+
+    input{
+      flex: 1;
+      background: none;
+      border: none;
+      border-bottom: 0.1px solid var(--main-color);
+      font-size: var(--medium-font-size);
+    }
+  }
+}
+
+.Daily {
+  flex: 1;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span {
+    flex: 1;
+    display: block;
+    border: 0.1px solid var(--main-color);
+    border-radius: 20px;
+    font-size: var(--big-font-size);
+    overflow: auto;
+    max-width: var(--textarea-width);
+    width: var(--textarea-width);
+    max-height: var(--textarea-height);
+    height: var(--textarea-height);
+    position: relative;
+
+    .Button {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      max-height: var(--big-font-size);
+      width: fit-content;
+    }
+  }
+
+  .Submit-Variants {
+    position: relative;
+
+    .Submit-Button {
+      height: var(--header-height);
+      width: var(--header-height);
+
+      .Button {
+        width: inherit;
+        height: inherit;
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    .Rotate {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: var(--header-height);
+      width: var(--header-height);
+      padding-left: 75%;
+      margin-left: 50%;
+      transform-origin: left center;
+
+      .Button {
+        width: inherit;
+        height: inherit;
+        transform: rotate(-90deg);
+      }
+    }
+
+    .Flip {
+      transform: rotate(170deg);
+    }
+
+    .NextWeek {
+      transform: rotate(10deg);
+    }
+
+    .Forward {
+      transform: rotate(117deg);
+    }
+
+    .NextDay {
+      transform: rotate(63deg);
+    }
+  }
+}
+
+.Overflow {
+  overflow: auto;
+  height: inherit;
+}
+
+.Export,
+.Import {
+  position: relative;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+
+  textarea {
+    flex: 1;
+    display: block;
+    border: 0.1px solid var(--main-color);
+    border-radius: 20px;
+    font-size: var(--small-font-size);
+    overflow: auto;
+  }
+
+  svg {
+    stroke: none !important;
+    height: 100%;
+  }
+
+  .Memo-Button {
+    background: var(--main-bg-color);
+    font-size: var(--small-font-size);
+    flex: 1;
+    border: 0.1px solid var(--main-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    margin-top: 10px;
+    max-height: 15%;
+  }
+}
+
+.Import {
+  .Memo-Button {
+    font-size: var(--medium-font-size);
+  }
+}

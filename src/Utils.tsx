@@ -1,7 +1,7 @@
 
 export function speak(text: string, voice?: string) {
   const synth = window.speechSynthesis;
-  const voices = synth.getVoices();
+  //const voices = synth.getVoices();
 
   if (synth.speaking) {
     console.error("speechSynthesis.speaking");
@@ -10,6 +10,8 @@ export function speak(text: string, voice?: string) {
 
   if (text !== "") {
     const utterThis = new SpeechSynthesisUtterance(text);
+    // http://www.lingoes.net/en/translator/langcode.htm
+    utterThis.lang = 'de-DE';
 
     utterThis.onend = function (event) {
       console.log("SpeechSynthesisUtterance.onend");
@@ -19,13 +21,15 @@ export function speak(text: string, voice?: string) {
       console.error("SpeechSynthesisUtterance.onerror");
     };
 
-    if (voice)
-      for (let i = 0; i < voices.length; i++) {
-        if (voices[i].name === voice) {
-          utterThis.voice = voices[i];
-          break;
-        }
-      }
+    // if (voice)
+    //   for (let i = 0; i < voices.length; i++) {
+    //     if (voices[i].name === voice) {
+    //       utterThis.voice = voices[i];
+    //       break;
+    //     }
+    //   }
+
+    
     utterThis.pitch = 1;
     utterThis.rate = 1;
     synth.speak(utterThis);

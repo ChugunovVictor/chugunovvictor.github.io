@@ -6,7 +6,8 @@ import { ReactComponent as Sound } from '../assets/images/Ubuntu/Sound.svg'
 type DailyProps = {
   flip: Flip,
   voice: string | undefined,
-  show: boolean
+  show: boolean,
+  onShow: () => void
 }
 
 const Daily = (props: DailyProps) => {
@@ -16,18 +17,18 @@ const Daily = (props: DailyProps) => {
     <>
       <div className="Decorated">
         {props.flip.value && <div className={decorationClass}>
-            <div className="Decoration"></div>
+            <div className="Decoration" onClick={() => props.onShow()}></div>
           </div>}
-        <span >{props.flip.card.value}</span>
+        <div className="Decorated-Value" >{props.flip.card.value}</div>
       </div>
       <div className="Decorated">
         {(!props.flip.value) && <div className={decorationClass}>
-            <div className="Decoration"></div>
+            <div className="Decoration" onClick={() => props.onShow()}></div>
           </div>}
-        <span >
+        <div className="Decorated-Value">
           {props.flip.card.translation}
           <Sound className='Button' onClick={() => speak(props.flip.card.translation, props.voice)} />
-        </span>
+        </div>
       </div>
     </>
   )

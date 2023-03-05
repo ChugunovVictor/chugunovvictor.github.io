@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { db } from './db'
 import { useLiveQuery } from "dexie-react-hooks";
-import { Header } from './components';
+import { Header, Footer } from './components';
 import { memoRoutes } from './routes'
 import { Fade } from './components'
 
@@ -17,19 +17,22 @@ const Root = () => {
     () => db.settings.where('key').equals("theme").first()
   );
 
+  const [footerButtons, setFooterButtons] = useState<JSX.Element>()
+
   return (
     <React.StrictMode>
-      <div className='Root' attr-theme={theme?.value ? theme?.value : 'Memo'}>
+      <div className='Root' attr-theme={theme?.value ? theme?.value : 'Light'}>
         <Fade />
         <BrowserRouter >
           <Header />
           <div className='Content' >
             <Routes>
               { memoRoutes.map(
-                e => <Route key={e.id} id={e.id} path={e.path} element={e.element} />
+                e => <Route key={e.id} id={e.id} path={e.path} element={e.element(setFooterButtons)} />
               ) }
             </Routes>
           </div>
+          <Footer children={footerButtons as JSX.Element }/>
         </BrowserRouter>
       </div>
     </React.StrictMode>

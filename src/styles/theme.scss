@@ -1,44 +1,13 @@
-// .Root[attr-theme=Memo] {
-//   font-family: Ubuntu;
-//   background: var(--main-bg-color);
-//   color: black;
-
-//   option {
-//     background: var(--main-bg-color);
-//   }
-// }
-
-// .Root[attr-theme=Dark] {
-//   font-family: MarckScript;
-//   background: #404040;
-//   color: white;
-
-//   option {
-//     background: #404040;
-//   }
-// }
-
-// .Root[attr-theme=Ink] {
-//   font-family: MarckScript;
-
-//   background-image: url("../reference/grid-reference.jpg");
-//   background-size: 107px 104px;
-//   background-repeat: repeat;
-
-//   option {
-//     background: #fdfefc;
-//   }
-// }
-
-
-.Root[attr-theme=Ubuntu] {
+.Root[attr-theme=Light] {
     --main-bg-color: #EEE;
+    --second-bg-color: #E6E6E6;
     --main-color: #000;
     --main-font: Ubuntu;
 
     background: var(--main-bg-color);
 
-    select, option {
+    select,
+    option {
         height: var(--medium-font-size);
         font-size: var(--small-font-size);
         background: var(--main-bg-color);
@@ -47,39 +16,20 @@
 
 }
 
-.Root[attr-theme=Ubuntu-Dark] {
+.Root[attr-theme=Dark] {
     --main-bg-color: #444;
+    --second-bg-color: #3C3C3C;
     --main-color: #FFF;
     --main-font: Ubuntu;
 
     background: var(--main-bg-color);
 
-    select, option {
+    select,
+    option {
         height: var(--medium-font-size);
         font-size: var(--small-font-size);
         background: var(--main-bg-color);
         color: var(--main-color);
     }
 
-}
-
-.Root[attr-theme=Memo-Ink] {
-    --main-bg-color: #EEE;
-    --main-font: MarckScript;
-
-    --red-ink-color: #ba2760;
-    --blue-ink-color: #574de0;
-
-    --main-color: var(--blue-ink-color);
-
-    background-image: url(../assets/images/grid-reference.jpg);
-    background-repeat: repeat;
-}
-
-.Root[attr-theme=Memo-Ink-Dark] {
-    --main-bg-color: #444;
-    --main-color: #FFF;
-    --main-font: MarckScript;
-
-    background: var(--main-bg-color);
 }

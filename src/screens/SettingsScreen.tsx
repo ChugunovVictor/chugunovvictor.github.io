@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Select } from '../components';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
 
@@ -15,14 +15,31 @@ const languageOption = (e: SpeechSynthesisVoice) => <option
   {e.name}
 </option>
 
+type SettingProps = {
+  setFooterButtons: (e: JSX.Element) => void
+}
 
-class Settings extends React.Component {
+class Settings extends React.Component<SettingProps> {
+  constructor(props: SettingProps) {
+    super(props)
+  }
+
   state: SettingsState = {
     voices: [],
-    themes: ["Ubuntu", "Ubuntu-Dark", "Memo-Ink", "Memo-Ink-Dark"]
+    themes: ["Light", "-Dark"]
   }
 
   componentDidMount(): void {
+    this.props.setFooterButtons(<>
+      <Button path={"/export"}>
+        <Ok className='Button' /><span>Export</span>
+      </Button>
+
+      <Button path={"/import"}>
+        <Ok className='Button' /><span>Import</span>
+      </Button>
+    </>
+    )
     let s = this.setSpeech();
     s.then((voices) => {
       this.setState({
@@ -66,14 +83,6 @@ class Settings extends React.Component {
         <Select items={this.state.voices} name="language" option={languageOption} />
         <div>Theme:</div>
         <Select items={this.state.themes} name="theme" />
-
-        <Button path={"/export"}>
-          <Ok className='Button' /> Export
-        </Button>
-
-        <Button path={"/import"}>
-          <Ok className='Button' /> Import
-        </Button>
       </div>
     );
   }

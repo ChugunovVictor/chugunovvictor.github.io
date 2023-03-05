@@ -1,9 +1,10 @@
+import React from 'react'
 import { HomeScreen, AddScreen, EditScreen, CardsScreen, SettingsScreen, DailyScreen, ExportScreen, ImportScreen } from './screens'
 
 type MemoRoute = {
   id: string,
   path: string,
-  element: JSX.Element,
+  element: (e: (el:JSX.Element) => void) => JSX.Element,
 
   homeButtonShow: boolean,
   addButtonShow: boolean,
@@ -11,13 +12,11 @@ type MemoRoute = {
 }
 
 export const memoRoutes: MemoRoute[] = [
-  { id: "Home", path: "/", element: <HomeScreen />, homeButtonShow: false, addButtonShow: true, settingsButtonShow: true },
-  { id: "Add Card", path: "/add", element: <AddScreen/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Edit Card", path: "/edit/:id", element: <EditScreen />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Daily", path: "/daily", element: <DailyScreen />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Settings", path: "/settings", element: <SettingsScreen />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: false },
-  { id: "Cards", path: "/all", element: <CardsScreen isArchive={false} />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Archive", path: "/archive", element: <CardsScreen isArchive={true} />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Export", path: "/export", element: <ExportScreen />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
-  { id: "Import", path: "/import", element: <ImportScreen />, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true }
+  { id: "Home", path: "/", element: (e: (el:JSX.Element) => void) => <HomeScreen setFooterButtons={e}/>, homeButtonShow: false, addButtonShow: true, settingsButtonShow: true },
+  { id: "Add Card", path: "/add", element: (e: (el:JSX.Element) => void) =>  <AddScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
+  { id: "Edit Card", path: "/edit/:id", element: (e: (el:JSX.Element) => void) => <EditScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
+  { id: "Settings", path: "/settings", element: (e: (el:JSX.Element) => void) => <SettingsScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: false },
+  { id: "Cards", path: "/cards", element: (e: (el:JSX.Element) => void) => <CardsScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
+  { id: "Export", path: "/export", element: (e: (el:JSX.Element) => void) => <ExportScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true },
+  { id: "Import", path: "/import", element: (e: (el:JSX.Element) => void) => <ImportScreen setFooterButtons={e}/>, homeButtonShow: true, addButtonShow: false, settingsButtonShow: true }
 ]

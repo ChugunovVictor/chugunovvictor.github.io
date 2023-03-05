@@ -10,6 +10,10 @@
      max-height: inherit;
  }
 
+ .Card-Tools .Memo-Button svg {
+     padding-top: unset
+ }
+
  .Card-Data {
      display: flex;
      flex-direction: column;
@@ -28,12 +32,15 @@
      border-bottom: 1px solid var(--main-color);
      align-items: center;
      max-height: 10vh;
+     height: 10vh;
  }
 
  .Card-Text {
      max-height: inherit;
      text-overflow: ellipsis;
      overflow: hidden;
+     max-height: inherit;
+     height: inherit;
  }
 
  .Card-Text-Value {
@@ -41,14 +48,15 @@
      width: 100%;
      overflow: hidden;
      height: var(--medium-font-size);
+     vertical-align: middle;
  }
 
  .Card-Text-Translation {
-    text-overflow: ellipsis;
-    width: 100%;
-    overflow: hidden;
-    height: var(--small-font-size);
-}
+     text-overflow: ellipsis;
+     width: 100%;
+     overflow: hidden;
+     height: var(--small-font-size);
+ }
 
  .Small {
      font-size: var(--small-font-size);

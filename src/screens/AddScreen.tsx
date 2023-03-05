@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
 import { db } from '../db';
 
-const AddScreen: React.FC = () => {
+type AddScreenProps = {
+  setFooterButtons: (e: JSX.Element) => void
+}
+
+const AddScreen: React.FC<AddScreenProps> = (props: AddScreenProps) => {
   const [value, setValue] = useState<string>("");
   const [translation, setTranslation] = useState<string>("");
+
+  useEffect(() => {
+    props.setFooterButtons(
+      <div className='Memo-Button' onClick={() => add()} >
+        <Ok className='Button' /> <span>Add new Card</span>
+      </div>
+    )
+  },[])
 
   async function add() {
 
@@ -35,7 +47,6 @@ const AddScreen: React.FC = () => {
           setTranslation(ev.target.value.trim())}>
         </textarea>
       </div>
-      <Ok className='Button' onClick={() => add()} />
     </div>
   );
 }

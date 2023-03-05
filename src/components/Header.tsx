@@ -1,25 +1,32 @@
-import { useNavigate } from "react-router-dom";
-import { navigateWithFade } from "./Fade";
-import { ReactComponent as Home } from '../assets/images/Ubuntu/Home.svg'
-import { ReactComponent as Add }  from '../assets/images/Ubuntu/Add.svg'
-import { ReactComponent as Settings }  from '../assets/images/Ubuntu/Settings.svg'
+import { ReactComponent as Cards } from '../assets/images/Ubuntu/Cards.svg';
+import { ReactComponent as Home } from '../assets/images/Ubuntu/Home.svg';
+import { ReactComponent as Settings } from '../assets/images/Ubuntu/Settings.svg';
 
-import { useLocation } from "react-router-dom"
-import { memoRoutes } from '../routes'
-  
+import { useLocation } from "react-router-dom";
+import { memoRoutes } from '../routes';
+import Button from "./Button";
+
 const Header: React.FC = () => {
-    const navigate = useNavigate()
 
-    const location = useLocation()   
+    const location = useLocation()
     const isEdit = location.pathname.startsWith("/edit") ? "/edit/:id" : location.pathname
     const route = memoRoutes.find(e => e.path === isEdit)
 
     return (
         <div className="Header">
-            <span className="Title"> {route?.id} </span>
-            { route?.homeButtonShow && <Home className='Button' onClick={()=> navigateWithFade("/", navigate)}/> }
-            { route?.addButtonShow && <Add className='Button' onClick={()=> navigateWithFade("/add", navigate)}/> }
-            { route?.settingsButtonShow && <Settings className='Button' onClick={()=> navigateWithFade("/settings", navigate)}/> }
+            {/* <span className="Title"> {route?.id} </span> */}
+            <Button path="/">
+                <Home className='Button' />
+                <span>Home</span>
+            </Button>
+            <Button path="/cards">
+                <Cards className='Button' />
+                <span>Cards</span>
+            </Button>
+            <Button path="/settings">
+                <Settings className='Button' />
+                <span>Settings</span>
+            </Button>
         </div>
     );
 }

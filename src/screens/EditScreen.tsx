@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
-import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
-import { ReactComponent as Clock } from '../assets/images/Ubuntu/Clock.svg'
-import { useState, useEffect } from 'react'
-import { db } from '../db'
-import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
-import { useNavigate } from 'react-router-dom';
-import { Calendar } from '../components'
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { ReactComponent as Clock } from '../assets/images/Ubuntu/Clock.svg';
+import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
+import { Calendar } from '../components';
+import { db } from '../db';
 
-const EditScreen: React.FC = () => {
+type EditScreenProps = {
+  setFooterButtons: (e: JSX.Element) => void
+}
+
+const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
   const navigate = useNavigate();
   let { id } = useParams();
 
@@ -23,6 +25,12 @@ const EditScreen: React.FC = () => {
 
   useEffect(
     () => {
+      props.setFooterButtons(<div className='Memo-Button'>
+        <Ok className='Button' />
+        <span>Save Card</span>
+      </div>
+      )
+
       if (cardInfo) {
         setValue(cardInfo.value)
         setTranslation(cardInfo.translation)
@@ -40,7 +48,7 @@ const EditScreen: React.FC = () => {
         await db.cards.delete(cardInfo?.value as string)
 
         let card = { value: value, translation: translation }
-        if(useNextAt) card = { ...card, ...{ nextAt } }
+        if (useNextAt) card = { ...card, ...{ nextAt } }
 
         await db.cards.add(card)
 
@@ -72,9 +80,6 @@ const EditScreen: React.FC = () => {
         <Clock className={`Clock-Button ${useNextAt && 'Toggled'}`} onClick={() => setUseNextAt(!useNextAt)} />
         {useNextAt && <Calendar date={nextAt ? nextAt : new Date()} onChange={setNextAt} />}
       </div>
-
-
-      <Ok className='Button' onClick={() => edit()} />
     </div>
   );
 }

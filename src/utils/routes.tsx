@@ -1,5 +1,5 @@
 import React from 'react'
-import { HomeScreen, AddScreen, EditScreen, CardsScreen, SettingsScreen, DailyScreen, ExportScreen, ImportScreen } from './screens'
+import { HomeScreen, AddScreen, EditScreen, CardsScreen, SettingsScreen, ExportScreen, ImportScreen } from '../screens'
 
 type MemoRoute = {
   id: string,

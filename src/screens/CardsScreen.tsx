@@ -1,7 +1,6 @@
 import { Card as ICard } from '../model/Card'
-import { Card, Button } from '../components';
-import { db } from '../db'
-import { useLiveQuery } from "dexie-react-hooks";
+import { Card, Button } from '@components';
+import { useCardsArchiveQuery } from '../utils/queries'
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as Add } from '../assets/images/Ubuntu/Add.svg'
 
@@ -11,9 +10,7 @@ const CardsScreen: React.FC<Archived> = (props: Archived) => {
   const [filter, setFilter] = useState("")
   const [isArchive, setIsArchive] = useState(false)
 
-  const cards = useLiveQuery(
-    () => (isArchive ? db.archive : db.cards).toArray()
-  );
+  const cards = useCardsArchiveQuery(isArchive);
 
   useEffect(() => {
     props.setFooterButtons(<Button path={"/add"}>
@@ -21,8 +18,6 @@ const CardsScreen: React.FC<Archived> = (props: Archived) => {
     </Button>
     )
   }, [cards])
-
-  
 
   return (
     <div className="Cards">

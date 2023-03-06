@@ -4,10 +4,10 @@ import './styles/index.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { db } from './db'
+import { db } from './utils/db'
 import { useLiveQuery } from "dexie-react-hooks";
 import { Header, Footer } from './components';
-import { memoRoutes } from './routes'
+import { memoRoutes } from './utils/routes'
 import { Fade } from './components'
 
 window.screen.orientation.lock("portrait")

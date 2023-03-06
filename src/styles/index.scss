@@ -167,9 +167,14 @@ svg {
 
 .Add {
   flex: 1;
-  font-size: var(--medium-font-size);
+  font-size: var(--small-font-size);
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  .Label{
+    margin-top: 10px;
+  }
 
   .Value {
     flex: 1;
@@ -199,9 +204,14 @@ svg {
 
 .Edit {
   flex: 1;
-  font-size: var(--medium-font-size);
+  font-size: var(--small-font-size);
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  .Label{
+    margin-top: 10px;
+  }
 
   .Value {
     display: flex;
@@ -209,6 +219,7 @@ svg {
     align-items: center;
 
     textarea {
+      text-align: center;
       flex: 1;
       display: block;
       border: 0.1px solid var(--main-color);
@@ -232,7 +243,7 @@ svg {
     justify-content: flex-start;
     align-items: center;
     height: calc(var(--medium-font-size)*3);
-    margin-bottom: 10px;
+    margin: 10px;
 
     .Clock-Button {
       max-height: var(--big-font-size);
@@ -255,6 +266,11 @@ svg {
   .Calendar-Slider {
     display: flex;
     flex-direction: column;
+    padding: 10px;
+
+    svg, .Calendar-Entries{
+      width: fit-content;
+    }
 
     .Button {
       height: var(--medium-font-size);

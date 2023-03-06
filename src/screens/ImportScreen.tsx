@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { db } from '../db'
+import { importDataBase } from '../utils/queries'
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
 import { Card } from '../model/Card';
 import { Setting } from '../model/Setting';
@@ -29,20 +29,7 @@ const ImportScreen = (props: ImportProps) => {
     async function import_() {
         const candidate = JSON.parse(value) as ImportMessage
 
-        console.log(candidate)
-
-        if (candidate.cards) {
-            db.cards.clear()
-            db.cards.bulkAdd(candidate.cards)
-        }
-        if (candidate.settings) {
-            db.settings.clear()
-            db.settings.bulkAdd(candidate.settings)
-        }
-        if (candidate.archive) {
-            db.archive.clear()
-            db.archive.bulkAdd(candidate.archive)
-        }
+        importDataBase(candidate.cards, candidate.settings, candidate.archive)
     }
 
     return <div className="Import">

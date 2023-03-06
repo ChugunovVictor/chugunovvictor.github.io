@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Select } from '../components';
+import { Button, Select } from '@components';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
 
 type SettingsState = {
@@ -26,7 +26,7 @@ class Settings extends React.Component<SettingProps> {
 
   state: SettingsState = {
     voices: [],
-    themes: ["Light", "-Dark"]
+    themes: ["Light", "Dark"]
   }
 
   componentDidMount(): void {

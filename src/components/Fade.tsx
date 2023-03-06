@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavigateFunction } from "react-router-dom";
-import { delay, on, off } from '../Utils';
+import { on, off } from '../utils/events';
+import { delay } from '../utils/other';
 
 export const navigateWithFade = (route: string, navigate: NavigateFunction) => {
     const fadeIn = new CustomEvent("fadeIn", {});

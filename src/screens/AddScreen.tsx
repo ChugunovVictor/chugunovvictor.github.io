@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
-import { db } from '../db';
+import { db } from '../utils/db';
 
 type AddScreenProps = {
   setFooterButtons: (e: JSX.Element) => void
@@ -34,14 +34,14 @@ const AddScreen: React.FC<AddScreenProps> = (props: AddScreenProps) => {
 
   return (
     <div className="Add">
-      <div className='Label'>Value:</div>
+      <div className='Label'>Value</div>
       <div className='Value'>
         <textarea value={value} onChange={ev => {
           setValue(ev.target.value.trim())
         }}>
         </textarea>
       </div>
-      <div className='Label'>Translation:</div>
+      <div className='Label'>Translation</div>
       <div className='Value'>
         <textarea value={translation} onChange={ev =>
           setTranslation(ev.target.value.trim())}>

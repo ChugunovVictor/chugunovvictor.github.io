@@ -6,7 +6,8 @@ import { ReactComponent as Edit } from '../assets/images/Ubuntu/Edit.svg'
 import { ReactComponent as Archive } from '../assets/images/Ubuntu/Archive.svg'
 import { ReactComponent as Cards } from '../assets/images/Ubuntu/Cards.svg'
 
-import { db } from '../db'
+import { db } from '../utils/db'
+import { getDate } from '../utils/other'
 
 function archive_(card: ICard) {
   db.cards.delete(card.value)
@@ -22,14 +23,6 @@ function _delete_(value: string) {
 function restore(card: ICard) {
   db.archive.delete(card.value)
   db.cards.add(card)
-}
-
-export function getDate(value: Date): string {
-  const days = value.getDate() < 10 ? `0${value.getDate()}` : value.getDate()
-  const months = (value.getMonth() + 1) < 10 ? `0${value.getMonth() + 1}` : value.getMonth() + 1
-  const year = value.getFullYear()
-
-  return `${days}.${months}.${year}`
 }
 
 type Props = { card: ICard, isArchive: boolean }

@@ -1,12 +1,11 @@
-import React, {useEffect} from 'react';
+import { useEffect } from 'react';
 
-import {db} from '../db'
-import { useLiveQuery } from "dexie-react-hooks";
-import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
+import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
+import { useArchiveQuery, useCardsQuery, useSettingsQuery } from '../utils/queries';
 
 type ExportProps = {
     setFooterButtons: (e: JSX.Element) => void
-  }
+}
 
 const ExportScreen = (props: ExportProps) => {
     useEffect(() => {
@@ -17,11 +16,11 @@ const ExportScreen = (props: ExportProps) => {
         )
     }, [])
 
-    const cards = useLiveQuery(() => db.cards.toArray());
-    const settings = useLiveQuery(() => db.settings.toArray());
-    const archive = useLiveQuery(() => db.archive.toArray());
+    const cards = useCardsQuery();
+    const settings = useSettingsQuery();
+    const archive = useArchiveQuery();
 
-    const result = {cards, settings, archive}
+    const result = { cards, settings, archive }
 
     const copy = () => {
         navigator.clipboard.writeText(JSON.stringify(result, null, 2));

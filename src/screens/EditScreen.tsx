@@ -1,56 +1,63 @@
-import { useLiveQuery } from "dexie-react-hooks";
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as Clock } from '../assets/images/Ubuntu/Clock.svg';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
 import { Calendar } from '../components';
-import { db } from '../db';
+import { upsertCard, deleteCard, useCardInfoQuery } from '../utils/queries';
+import { on, off } from '../utils/events';
 
 type EditScreenProps = {
   setFooterButtons: (e: JSX.Element) => void
+}
+
+function notify() {
+  const edit = new CustomEvent("EditScreen_edit", {});
+  document.dispatchEvent(edit);
 }
 
 const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
   const navigate = useNavigate();
   let { id } = useParams();
 
-  const cardInfo = useLiveQuery(
-    () => db.cards.filter(e => e.value == id).first()
-  );
+  const cardInfo = useCardInfoQuery(id as string)
 
   const [value, setValue] = useState<string>();
   const [translation, setTranslation] = useState<string>();
   const [nextAt, setNextAt] = useState<Date>();
   const [useNextAt, setUseNextAt] = useState<boolean>(false);
 
-  useEffect(
-    () => {
-      props.setFooterButtons(<div className='Memo-Button'>
-        <Ok className='Button' />
-        <span>Save Card</span>
-      </div>
-      )
+  React.useEffect(() => {
+    on("EditScreen_edit", () => edit());
 
-      if (cardInfo) {
-        setValue(cardInfo.value)
-        setTranslation(cardInfo.translation)
-        cardInfo.nextAt && (() => {
-          setNextAt(cardInfo.nextAt);
-          setUseNextAt(true);
-        })()
-      }
+    props.setFooterButtons(<div className='Memo-Button' onClick={() => notify()}>
+      <Ok className='Button' />
+      <span>Save Card</span>
+    </div>
+    )
+
+    if (cardInfo) {
+      setValue(cardInfo.value)
+      setTranslation(cardInfo.translation)
+      cardInfo.nextAt && (() => {
+        setNextAt(cardInfo.nextAt);
+        setUseNextAt(true);
+      })()
     }
-    , [cardInfo])
+
+    return () => {
+      off("EditScreen_edit", () => {});
+    }
+  }, [cardInfo]);
 
   async function edit() {
     try {
+      console.log(value, translation)
       if (value && translation) {
-        await db.cards.delete(cardInfo?.value as string)
-
         let card = { value: value, translation: translation }
         if (useNextAt) card = { ...card, ...{ nextAt } }
 
-        await db.cards.add(card)
+        await deleteCard(cardInfo?.value as string)
+        await upsertCard(card, false)
 
         navigate(-1)
       }
@@ -59,23 +66,21 @@ const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
     }
   }
 
-  const calendar = useRef({});
-
   return (
     <div className="Edit">
-      <div className='Label'>Value:</div>
+      <div className='Label'>Value</div>
       <div className='Value'>
         <textarea value={value} onChange={ev => {
           setValue(ev.target.value.trim())
         }}>
         </textarea>
       </div>
-      <div className='Label'>Translation:</div>
+      <div className='Label'>Translation</div>
       <div className='Value'>
         <textarea value={translation} onChange={ev => setTranslation(ev.target.value.trim())}>
         </textarea>
       </div>
-      <div className='Label'>Next At:</div>
+      <div className='Label'>Next At</div>
       <div className='Clock'>
         <Clock className={`Clock-Button ${useNextAt && 'Toggled'}`} onClick={() => setUseNextAt(!useNextAt)} />
         {useNextAt && <Calendar date={nextAt ? nextAt : new Date()} onChange={setNextAt} />}

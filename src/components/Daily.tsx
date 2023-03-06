@@ -1,5 +1,5 @@
 import { Flip } from "../model/Flip"
-import { speak } from '../Utils';
+import { speak } from '../utils/speech';
 
 import { ReactComponent as Sound } from '../assets/images/Ubuntu/Sound.svg'
 

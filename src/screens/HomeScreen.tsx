@@ -1,28 +1,17 @@
 import React from 'react';
 
-import { ReactComponent as Forward } from '../assets/images/Ubuntu/Forward.svg'
-import { ReactComponent as Flip_ } from '../assets/images/Ubuntu/Flip.svg'
-import { ReactComponent as NextDay } from '../assets/images/Ubuntu/NextDay.svg'
-import { ReactComponent as NextWeek } from '../assets/images/Ubuntu/NextWeek.svg'
-import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
+import { ReactComponent as Flip_ } from '../assets/images/Ubuntu/Flip.svg';
+import { ReactComponent as Forward } from '../assets/images/Ubuntu/Forward.svg';
+import { ReactComponent as NextDay } from '../assets/images/Ubuntu/NextDay.svg';
+import { ReactComponent as NextWeek } from '../assets/images/Ubuntu/NextWeek.svg';
+import { settingQuery, dailyQuery } from '../utils/queries';
 
-import { Button } from '../components';
-import { db } from '../db'
-import { speak } from '../Utils';
-import { liveQuery } from "dexie";
+import Daily from '@components';
 import { Flip } from '../model/Flip';
-import Daily from '../components/Daily';
-import { getDate } from '../components/Card'
+import { db } from '../utils/db';
 
-const defaultVoice = liveQuery(
-  () => db.settings.where('key').equals("language").first()
-);
-
-const cards = liveQuery(
-  () => db.cards
-    .filter(e => e.nextAt ? getDate(e.nextAt) === getDate(new Date()) : true)
-    .toArray()
-);
+const voice = settingQuery("language")
+const cards = dailyQuery()
 
 type HomeScreenState = {
   voice: string | undefined,
@@ -71,7 +60,7 @@ class HomeScreen extends React.Component<HomeScreenProps> {
       </div>
     </>
     )
-    this.subscriptionVoice = defaultVoice.subscribe(
+    this.subscriptionVoice = voice.subscribe(
       result => this.setState({ voice: result?.value }),
       error => this.setState({ error })
     );

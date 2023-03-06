@@ -1,7 +1,7 @@
 // db.ts
 import Dexie, { Table } from 'dexie';
-import {Card} from './model/Card'
-import { Setting } from './model/Setting';
+import {Card} from '../model/Card'
+import { Setting } from '../model/Setting';
 
 export class MySubClassedDexie extends Dexie {
   cards!: Table<Card>; 

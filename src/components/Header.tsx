@@ -3,7 +3,7 @@ import { ReactComponent as Home } from '../assets/images/Ubuntu/Home.svg';
 import { ReactComponent as Settings } from '../assets/images/Ubuntu/Settings.svg';
 
 import { useLocation } from "react-router-dom";
-import { memoRoutes } from '../routes';
+import { memoRoutes } from '../utils/routes';
 import Button from "./Button";
 
 const Header: React.FC = () => {

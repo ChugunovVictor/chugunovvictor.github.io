@@ -107,11 +107,25 @@ svg {
     stroke: none !important;
   }
 
+  .Value{
 
+    .Label{
+      font-size: var(--small-font-size);
+    }
+
+    background: var(--second-bg-color);
+    padding: 10px 20px;
+    margin: 10px -20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   select {
     max-width: inherit;
     margin-bottom: 10px;
+    border:none;
   }
 }
 
@@ -491,4 +505,22 @@ svg {
   .Memo-Button {
     font-size: var(--medium-font-size);
   }
+}
+
+.Select-Value{
+  text-align: center;
+}
+
+.Select-Options{
+  border-top: 1px solid var(--main-color);
+  font-size: var(--small-font-size);
+
+  .Select-Option{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--medium-font-size);
+  }
+
+  
 }

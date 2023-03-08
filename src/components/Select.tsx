@@ -1,10 +1,12 @@
 import { useSettingQuery, upsertSetting } from '../utils/queries';
+import React, { useState } from 'react'
+import { Language } from '../screens/SettingsScreen';
 
-type Props = { name: string, items: any[], option?: (e: any) => JSX.Element }
-
-const defaultOption = (e: any) => <option data-name={e} key={e}>{e}</option>
+type Props = { name: string, items: (string | Language)[], isLanguage?: boolean }
 
 const Select: React.FC<Props> = (props: Props) => {
+  const [open, setOpen] = useState(false)
+
   const key = props.name
 
   const defaultValue = useSettingQuery(key)
@@ -19,18 +21,43 @@ const Select: React.FC<Props> = (props: Props) => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setOpen(false)
     }
   }
 
-  console.log(key, ": ", defaultValue)
+  const textOption = (e: any) => <div
+    className='Select-Option'
+    data-name={e}
+    key={e}
+    onClick={() => {
+      setValue(e)
+    }}
+  >
+    {e}
+  </div>
+
+  const languageOption = (e: Language) => <div
+    className='Select-Option'
+    data-name={e.signature}
+    key={e.name}
+    onClick={() => {
+      setValue(e.signature)
+    }}
+  >
+    {e.name}
+  </div>
+
   return (
-    <select value={defaultValue?.value} onChange={(e) => {
-      const item = e.target.selectedOptions.item(0) as HTMLOptionElement
-      setValue(item.getAttribute("data-name") as string)
-    }
-    }>
-      {props.items.map(props.option ? props.option : defaultOption)}
-    </select>
+    <div className='Select'>
+      <div className='Select-Value' onClick={() => setOpen(!open)}>{
+        props.isLanguage ? (props.items as Language[]).filter(e => e.signature == defaultValue?.value)[0]?.name : defaultValue?.value
+      }</div>
+      {open &&
+        <div className='Select-Options'>
+          {props.items.map(e => props.isLanguage ? languageOption(e as Language) : textOption(e))}
+        </div>}
+    </div>
   );
 }
 

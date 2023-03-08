@@ -11,7 +11,7 @@ export function speak(text: string, voice?: string) {
   if (text !== "") {
     const utterThis = new SpeechSynthesisUtterance(text);
     // http://www.lingoes.net/en/translator/langcode.htm
-    utterThis.lang = 'de-DE';
+    if (voice) utterThis.lang = voice;
 
     utterThis.onend = function (event) {
       console.log("SpeechSynthesisUtterance.onend");

@@ -2,18 +2,30 @@ import React, { useEffect } from 'react';
 import { Button, Select } from '../components';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
 
+export type Language = {
+  name: string,
+  signature: string,
+}
+
 type SettingsState = {
-  voices: SpeechSynthesisVoice[],
+  voices: Language[]// SpeechSynthesisVoice[],
   themes: string[]
 }
 
-const languageOption = (e: SpeechSynthesisVoice) => <option
-  data-lang={e.lang}
-  data-name={e.name}
+// const languageOption = (e: SpeechSynthesisVoice) => <option
+//   data-lang={e.lang}
+//   data-name={e.name}
+//   key={e.name}
+// >
+//   {e.name}
+// </option>
+
+const languageOption = (e: Language) => <div className='Select-Option'
+  data-name={e.signature}
   key={e.name}
 >
   {e.name}
-</option>
+</div>
 
 type SettingProps = {
   setFooterButtons: (e: JSX.Element) => void
@@ -25,7 +37,13 @@ class Settings extends React.Component<SettingProps> {
   }
 
   state: SettingsState = {
-    voices: [],
+    voices: [
+      {name: "Russian (Русский)", signature: "ru"}, 
+      {name: "German (Deutsch)", signature: "de"}, 
+      {name: "English (English)", signature: "en"}, 
+      {name: "Portuguese (Português)", signature: "pt"}, 
+      {name: "Japanese (日本)", signature: "ja"}
+    ],
     themes: ["Light", "Dark"]
   }
 
@@ -40,12 +58,12 @@ class Settings extends React.Component<SettingProps> {
       </Button>
     </>
     )
-    let s = this.setSpeech();
-    s.then((voices) => {
-      this.setState({
-        voices
-      })
-    });
+    // let s = this.setSpeech();
+    // s.then((voices) => {
+    //   this.setState({
+    //     voices
+    //   })
+    // });
   }
 
   setSpeech() {
@@ -81,11 +99,11 @@ class Settings extends React.Component<SettingProps> {
       <div className="Settings">
 
         <div className='Value'>
-          <div className='Label'>Voice:</div>
-          <Select items={this.state.voices} name="language" option={languageOption} />
+          <div className='Label'>Voice</div>
+          <Select items={this.state.voices} name="language" isLanguage={true} />
         </div>
         <div className='Value'>
-          <div className='Label'>Theme:</div>
+          <div className='Label'>Theme</div>
           <Select items={this.state.themes} name="theme" />
         </div>
       </div>

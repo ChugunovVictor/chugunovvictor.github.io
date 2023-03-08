@@ -1,6 +1,6 @@
 import { Flip } from "../model/Flip"
 import { speak } from '../utils/speech';
-
+import { useSettingQuery } from "../utils/queries";
 import { ReactComponent as Sound } from '../assets/images/Ubuntu/Sound.svg'
 
 type DailyProps = {
@@ -12,6 +12,8 @@ type DailyProps = {
 
 const Daily = (props: DailyProps) => {
   const decorationClass = `Decorated ${props.show && "Undecorated"}`
+
+  const voice = useSettingQuery("language")?.value
 
   return (
     <>
@@ -26,7 +28,7 @@ const Daily = (props: DailyProps) => {
           {props.flip.card.translation}
         </div>}
         {props.flip.card.translation}
-        <Sound className='Button' onClick={() => speak(props.flip.card.translation, props.voice)} />
+        <Sound className='Button' onClick={() => speak(props.flip.card.translation, voice)} />
       </div>
     </>
   )

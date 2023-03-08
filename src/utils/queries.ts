@@ -10,14 +10,11 @@ export const deleteCard = (id: string) => db.cards.delete(id)
 
 export const upsertSetting = (value: Setting, update: any) => update ? db.settings.put(value) : db.settings.add(value)
 
-export const useSettingsQuery = () => useLiveQuery(() => db.settings.toArray());
-export const useCardsQuery = () => useLiveQuery(() => db.cards.toArray());
-export const useArchiveQuery = () => useLiveQuery(() => db.archive.toArray());
-
 export const cardsQuery = () => liveQuery(() => db.cards.toArray());
 export const archiveQuery = () => liveQuery(() => db.archive.toArray());
+export const settingsQuery = () => liveQuery(() => db.settings.toArray());
 
-export const useCardInfoQuery = (id: string) => useLiveQuery(
+export const cardInfoQuery = (id: string) => liveQuery(
     () => db.cards.filter(e => e.value == id).first()
 );
 

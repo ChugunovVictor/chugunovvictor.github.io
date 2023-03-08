@@ -469,6 +469,21 @@ svg {
   justify-content: stretch;
   align-items: stretch;
 
+  .Toast{
+    position: absolute;
+    background: var(--main-bg-color);
+    color: var(--main-color);
+    font-size: var(--medium-font-size);
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -20px;
+    padding: 20px;
+    top: 40%;
+  }
+
   textarea {
     flex: 1;
     display: block;

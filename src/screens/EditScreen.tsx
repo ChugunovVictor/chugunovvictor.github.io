@@ -1,94 +1,134 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import React from 'react';
+import { Navigate } from 'react-router';
 import { ReactComponent as Clock } from '../assets/images/Ubuntu/Clock.svg';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
 import { Calendar } from '../components';
-import { upsertCard, deleteCard, useCardInfoQuery } from '../utils/queries';
-import { on, off } from '../utils/events';
+import { cardInfoQuery, deleteCard, upsertCard } from '../utils/queries';
+
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+type IdParamProps = { onMount: (value: string) => void }
+
+const IdParam: React.FC<IdParamProps> = (props: IdParamProps) => {
+  let { id } = useParams();
+
+  useEffect(() => {
+    id && props.onMount(id)
+  }, [id])
+  return (<></>);
+}
+
+// ---------------------------------------------------------------
 
 type EditScreenProps = {
   setFooterButtons: (e: JSX.Element) => void
 }
 
-function notify() {
-  const edit = new CustomEvent("EditScreen_edit", {});
-  document.dispatchEvent(edit);
+type EditScreenState = {
+  value: string,
+  translation: string,
+  nextAt: Date,
+  useNextAt: boolean,
+  navigate: boolean,
+  initialValue: string
 }
 
-const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
-  const navigate = useNavigate();
-  let { id } = useParams();
+const cardInfo = (id: string) => cardInfoQuery(id)
 
-  const cardInfo = useCardInfoQuery(id as string)
+class EditScreen extends React.Component<EditScreenProps>{
+  constructor(props: EditScreenProps) {
+    super(props);
 
-  const [value, setValue] = useState<string>();
-  const [translation, setTranslation] = useState<string>();
-  const [nextAt, setNextAt] = useState<Date>();
-  const [useNextAt, setUseNextAt] = useState<boolean>(false);
+    this.setState = this.setState.bind(this)
+    this.edit = this.edit.bind(this)
+  }
 
-  React.useEffect(() => {
-    on("EditScreen_edit", () => edit());
+  state: EditScreenState = {
+    initialValue: "",
+    value: "",
+    translation: "",
+    nextAt: new Date(),
+    useNextAt: false,
+    navigate: false
+  }
 
-    props.setFooterButtons(<div className='Memo-Button' onClick={() => notify()}>
+  subscription: any
+
+  subscribe(id: string) {
+    this.subscription = cardInfo(id).subscribe(
+      result => {
+        let card = { initialValue: result?.value, value: result?.value, translation: result?.translation }
+        if (result?.nextAt)
+          card = { ...card, ...{ nextAt: result?.nextAt, useNextAt: true } }
+        this.setState(card)
+      },
+      error => this.setState({ error })
+    );
+  }
+
+  componentDidMount() {
+    this.props.setFooterButtons(<div className='Memo-Button' onClick={() => this.edit()}>
       <Ok className='Button' />
       <span>Save Card</span>
     </div>
     )
+  }
 
-    if (cardInfo) {
-      setValue(cardInfo.value)
-      setTranslation(cardInfo.translation)
-      cardInfo.nextAt && (() => {
-        setNextAt(cardInfo.nextAt);
-        setUseNextAt(true);
-      })()
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
     }
+  }
 
-    return () => {
-      off("EditScreen_edit", () => { });
-    }
-  }, [cardInfo]);
-
-  async function edit() {
+  async edit() {
     try {
-      console.log(value, translation)
-      if (value && translation) {
-        let card = { value: value, translation: translation }
-        if (useNextAt) card = { ...card, ...{ nextAt } }
+      if (this.state.value && this.state.translation) {
+        let card = { value: this.state.value, translation: this.state.translation }
+        if (this.state.useNextAt) card = { ...card, ...{ nextAt: this.state.nextAt } }
 
-        await deleteCard(cardInfo?.value as string)
+        await deleteCard(this.state.initialValue)
         await upsertCard(card, false)
 
-        navigate(-1)
+        this.setState({ navigate: true })
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  return (
-    <div className="Edit">
-      <div className='Value'>
-        <div className='Label'>Value</div>
-        <textarea value={value} onChange={ev => {
-          setValue(ev.target.value.trim())
-        }}>
-        </textarea>
-      </div>
-      <div className='Value'>
-        <div className='Label'>Translation</div>
-        <textarea value={translation} onChange={ev => setTranslation(ev.target.value.trim())}>
-        </textarea>
-      </div>
-      <div className='Clock Value'>
-        <div className='Label'>Next At</div>
-        <div  className='Clock-Value'>
-          <Clock className={`Clock-Button ${useNextAt && 'Toggled'}`} onClick={() => setUseNextAt(!useNextAt)} />
-          {useNextAt && <Calendar date={nextAt ? nextAt : new Date()} onChange={setNextAt} />}
+  render() {
+    return (
+      <div className="Edit">
+        <IdParam onMount={(id) => this.subscribe(id)} />
+        <div className='Value'>
+          <div className='Label'>Value</div>
+          <textarea value={this.state.value} onChange={ev => {
+            this.setState({ value: ev.target.value.trim() })
+          }}>
+          </textarea>
         </div>
+        <div className='Value'>
+          <div className='Label'>Translation</div>
+          <textarea value={this.state.translation} onChange={ev => this.setState({ translation: ev.target.value.trim() })}>
+          </textarea>
+        </div>
+        <div className='Clock Value'>
+          <div className='Label'>Next At</div>
+          <div className='Clock-Value'>
+            <Clock className={`Clock-Button ${this.state.useNextAt && 'Toggled'}`} onClick={() => this.setState((prev: EditScreenState) => {
+              return { useNextAt: !prev.useNextAt }
+            })} />
+            {this.state.useNextAt && <Calendar date={this.state.nextAt ? this.state.nextAt : new Date()} onChange={e =>
+              this.setState({ nextAt: e })
+            } />}
+          </div>
+        </div>
+        {this.state.navigate && <Navigate to={"/cards"}></Navigate>}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default EditScreen;

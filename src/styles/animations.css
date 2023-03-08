@@ -113,3 +113,20 @@
 .Slide-Up {
   animation: SlideUp 0.125s ease;
 }
+
+@keyframes toastFade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.Toast {
+  animation: toastFade 1s ease;
+  animation-fill-mode: forwards;
+}

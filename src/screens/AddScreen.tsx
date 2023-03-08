@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
 import { db } from '../utils/db';
 
@@ -6,49 +6,59 @@ type AddScreenProps = {
   setFooterButtons: (e: JSX.Element) => void
 }
 
-const AddScreen: React.FC<AddScreenProps> = (props: AddScreenProps) => {
-  const [value, setValue] = useState<string>("");
-  const [translation, setTranslation] = useState<string>("");
+class AddScreen extends React.Component<AddScreenProps>{
+  constructor(props: AddScreenProps) {
+    super(props)
+    this.add = this.add.bind(this);
+  }
 
-  useEffect(() => {
-    props.setFooterButtons(
-      <div className='Memo-Button' onClick={() => add()} >
+  state = {
+    value: "",
+    translation: ""
+  }
+
+  componentDidMount(): void {
+    this.props.setFooterButtons(
+      <div className='Memo-Button' onClick={() => this.add()} >
         <Ok className='Button' /> <span>Add new Card</span>
       </div>
     )
-  }, [])
+  }
 
-  async function add() {
+  async add() {
 
     try {
-      if (value && translation) {
-        await db.cards.add({ value: value, translation: translation })
+      if (this.state.value && this.state.translation) {
+        await db.cards.add({ value: this.state.value, translation: this.state.translation })
 
-        setValue("");
-        setTranslation("");
+        this.setState({
+          value: "", translation: ""
+        })
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  return (
-    <div className="Add">
-      <div className='Value'>
-        <div className='Label'>Value</div>
-        <textarea placeholder="Enter Value" value={value} onChange={ev => {
-          setValue(ev.target.value.trim())
-        }}>
-        </textarea>
+  render() {
+    return (
+      <div className="Add">
+        <div className='Value'>
+          <div className='Label'>Value</div>
+          <textarea placeholder="Enter Value" value={this.state.value} onChange={ev => {
+            this.setState({ value: ev.target.value.trim() })
+          }}>
+          </textarea>
+        </div>
+        <div className='Value'>
+          <div className='Label'>Translation</div>
+          <textarea placeholder="Enter Translation" value={this.state.translation} onChange={ev =>
+            this.setState({ translation: ev.target.value.trim() })}>
+          </textarea>
+        </div>
       </div>
-      <div className='Value'>
-        <div className='Label'>Translation</div>
-        <textarea  placeholder="Enter Translation" value={translation} onChange={ev =>
-          setTranslation(ev.target.value.trim())}>
-        </textarea>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default AddScreen;

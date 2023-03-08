@@ -85,9 +85,13 @@ class HomeScreen extends React.Component<HomeScreenProps> {
   async move(week: boolean) {
     const [currentCard, ...theRest] = this.state.cards
 
+    if(!currentCard) return;
+
     const today = new Date();
     const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
     const nextWeek = new Date(today.getTime() + (7 * 24 * 60 * 60 * 1000));
+
+
 
     const card = { ...currentCard.card, nextAt: week ? nextWeek : tomorrow }
 
@@ -97,6 +101,9 @@ class HomeScreen extends React.Component<HomeScreenProps> {
 
   next(flip: boolean) {
     const [currentCard, ...theRest] = this.state.cards
+
+    if(!currentCard) return;
+
     const flipped = { ...currentCard, value: flip ? !currentCard.value : currentCard.value }
     const newCards = [...theRest, flipped]
     this.setState({ cards: newCards, show: false })
@@ -107,7 +114,7 @@ class HomeScreen extends React.Component<HomeScreenProps> {
       <div className="Home">
         {
           this.state.cards.length > 0 &&
-          <Daily flip={this.state.cards[0]} voice={this.state.voice} show={this.state.show} onShow={() => {console.log(123); this.setState({ show: true })}}></Daily>
+          <Daily flip={this.state.cards[0]} voice={this.state.voice} show={this.state.show} onShow={() => {this.setState({ show: true })}}></Daily>
         }
       </div>
     );

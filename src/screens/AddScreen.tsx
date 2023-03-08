@@ -16,7 +16,7 @@ const AddScreen: React.FC<AddScreenProps> = (props: AddScreenProps) => {
         <Ok className='Button' /> <span>Add new Card</span>
       </div>
     )
-  },[])
+  }, [])
 
   async function add() {
 
@@ -34,16 +34,16 @@ const AddScreen: React.FC<AddScreenProps> = (props: AddScreenProps) => {
 
   return (
     <div className="Add">
-      <div className='Label'>Value</div>
       <div className='Value'>
-        <textarea value={value} onChange={ev => {
+        <div className='Label'>Value</div>
+        <textarea placeholder="Enter Value" value={value} onChange={ev => {
           setValue(ev.target.value.trim())
         }}>
         </textarea>
       </div>
-      <div className='Label'>Translation</div>
       <div className='Value'>
-        <textarea value={translation} onChange={ev =>
+        <div className='Label'>Translation</div>
+        <textarea  placeholder="Enter Translation" value={translation} onChange={ev =>
           setTranslation(ev.target.value.trim())}>
         </textarea>
       </div>

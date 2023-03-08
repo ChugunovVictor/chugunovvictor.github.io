@@ -79,10 +79,15 @@ class Settings extends React.Component<SettingProps> {
   render() {
     return (
       <div className="Settings">
-        <div>Voice:</div>
-        <Select items={this.state.voices} name="language" option={languageOption} />
-        <div>Theme:</div>
-        <Select items={this.state.themes} name="theme" />
+
+        <div className='Value'>
+          <div className='Label'>Voice:</div>
+          <Select items={this.state.voices} name="language" option={languageOption} />
+        </div>
+        <div className='Value'>
+          <div className='Label'>Theme:</div>
+          <Select items={this.state.themes} name="theme" />
+        </div>
       </div>
     );
   }

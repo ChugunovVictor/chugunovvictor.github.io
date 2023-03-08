@@ -45,7 +45,7 @@ const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
     }
 
     return () => {
-      off("EditScreen_edit", () => {});
+      off("EditScreen_edit", () => { });
     }
   }, [cardInfo]);
 
@@ -68,22 +68,24 @@ const EditScreen: React.FC<EditScreenProps> = (props: EditScreenProps) => {
 
   return (
     <div className="Edit">
-      <div className='Label'>Value</div>
       <div className='Value'>
+        <div className='Label'>Value</div>
         <textarea value={value} onChange={ev => {
           setValue(ev.target.value.trim())
         }}>
         </textarea>
       </div>
-      <div className='Label'>Translation</div>
       <div className='Value'>
+        <div className='Label'>Translation</div>
         <textarea value={translation} onChange={ev => setTranslation(ev.target.value.trim())}>
         </textarea>
       </div>
-      <div className='Label'>Next At</div>
-      <div className='Clock'>
-        <Clock className={`Clock-Button ${useNextAt && 'Toggled'}`} onClick={() => setUseNextAt(!useNextAt)} />
-        {useNextAt && <Calendar date={nextAt ? nextAt : new Date()} onChange={setNextAt} />}
+      <div className='Clock Value'>
+        <div className='Label'>Next At</div>
+        <div  className='Clock-Value'>
+          <Clock className={`Clock-Button ${useNextAt && 'Toggled'}`} onClick={() => setUseNextAt(!useNextAt)} />
+          {useNextAt && <Calendar date={nextAt ? nextAt : new Date()} onChange={setNextAt} />}
+        </div>
       </div>
     </div>
   );

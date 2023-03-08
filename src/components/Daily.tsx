@@ -11,24 +11,22 @@ type DailyProps = {
 }
 
 const Daily = (props: DailyProps) => {
-  const decorationClass = `Decoration-Background ${props.show && "Undecorated"}`
+  const decorationClass = `Decorated ${props.show && "Undecorated"}`
 
   return (
     <>
-      <div className="Decorated">
-        {props.flip.value && <div className={decorationClass}>
-            <div className="Decoration" onClick={() => props.onShow()}></div>
-          </div>}
-        <div className="Decorated-Value" >{props.flip.card.value}</div>
+      <div className="Daily">
+        {(props.flip.value && !props.show) && <div className={decorationClass} onClick={() => props.onShow()}>
+          {props.flip.card.value}
+        </div>}
+        {props.flip.card.value}
       </div>
-      <div className="Decorated">
-        {(!props.flip.value) && <div className={decorationClass}>
-            <div className="Decoration" onClick={() => props.onShow()}></div>
-          </div>}
-        <div className="Decorated-Value">
+      <div className="Daily">
+        {(!props.flip.value && !props.show) && <div className={decorationClass} onClick={() => props.onShow()}>
           {props.flip.card.translation}
-          <Sound className='Button' onClick={() => speak(props.flip.card.translation, props.voice)} />
-        </div>
+        </div>}
+        {props.flip.card.translation}
+        <Sound className='Button' onClick={() => speak(props.flip.card.translation, props.voice)} />
       </div>
     </>
   )

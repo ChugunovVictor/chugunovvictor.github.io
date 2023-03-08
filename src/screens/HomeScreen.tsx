@@ -51,12 +51,12 @@ class HomeScreen extends React.Component<HomeScreenProps> {
 
       <div className='Memo-Button'>
         <NextDay className='Button' onClick={() => this.move(false)} />
-        <span>By Day</span>
+        <span>Day</span>
       </div>
 
       <div className='Memo-Button'>
         <NextWeek className='Button' onClick={() => this.move(true)} />
-        <span>By Week</span>
+        <span>Week</span>
       </div>
     </>
     )
@@ -107,7 +107,7 @@ class HomeScreen extends React.Component<HomeScreenProps> {
       <div className="Home">
         {
           this.state.cards.length > 0 &&
-          <Daily flip={this.state.cards[0]} voice={this.state.voice} show={this.state.show} onShow={() => this.setState({ show: true })}></Daily>
+          <Daily flip={this.state.cards[0]} voice={this.state.voice} show={this.state.show} onShow={() => {console.log(123); this.setState({ show: true })}}></Daily>
         }
       </div>
     );

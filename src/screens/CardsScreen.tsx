@@ -52,12 +52,12 @@ class CardsScreen extends React.Component<CardsScreenProps> {
     this.isArchived(false)
 
     this.subscriptionCards = cards.subscribe(
-      result => this.setState({ cards: result.map(e => ({ value: e.value, card: e })) }),
+      result => this.setState({ cards: result }),
       error => this.setState({ error })
     );
 
     this.subscriptionArchive = archive.subscribe(
-      result => this.setState({ archive: result.map(e => ({ value: e.value, card: e })) }),
+      result => this.setState({ archive: result }),
       error => this.setState({ error })
     );
   }

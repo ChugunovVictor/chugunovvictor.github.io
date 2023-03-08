@@ -33,7 +33,7 @@ const ImportScreen = (props: ImportProps) => {
     }
 
     return <div className="Import">
-        <textarea value={value} onChange={(e) => setValue(e.target.value)}></textarea>
+        <textarea placeholder={"Enter import data..."} value={value} onChange={(e) => setValue(e.target.value)}></textarea>
     </div>
 }
 export default ImportScreen;

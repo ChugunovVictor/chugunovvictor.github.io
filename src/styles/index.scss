@@ -133,61 +133,30 @@ svg {
   }
 }
 
-.Decorated {
-  position: relative;
-  background: var(--second-bg-color);
-  margin: -20px;
-  padding: 20px;
-
-  .Decoration {
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: url(../assets/images/noise-light.jpg)  no-repeat;
-    flex: 1;
-    max-width: var(--textarea-width);
-    width: var(--textarea-width);
-    max-height: var(--textarea-height);
-    height: var(--textarea-height);
-  }
-
-  .Decoration-Background {
-    z-index: 1;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: var(--main-bg-color);
-    flex: 1;
-    max-width: var(--textarea-width);
-    width: var(--textarea-width);
-    max-height: var(--textarea-height);
-    height: var(--textarea-height);
-  }
-}
-
 .Add {
   flex: 1;
   font-size: var(--small-font-size);
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .Label{
-    margin-top: 10px;
-  }
+  justify-content: space-evenly;
 
   .Value {
-    flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: var(--second-bg-color);
+    height: var(--textarea-height);
+    padding: 10px 20px;
+    margin: -10px -20px;
 
     textarea {
-      flex: 1;
+      text-align: center;
       display: block;
-      border: 0.1px solid var(--main-color);
-      border-radius: 20px;
+      border: none;
+      color: var(--main-color);
+      background: inherit;
       font-size: var(--medium-font-size);
       overflow: auto;
       max-width: var(--textarea-width);
@@ -209,22 +178,47 @@ svg {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 
   .Label{
-    margin-top: 10px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+
+  .Clock{
+    max-width: var(--textarea-width);
+    width: var(--textarea-width);
+    max-height: var(--textarea-height);
+    height: var(--textarea-height);
+  }
+
+  .Clock-Value{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    max-width: var(--textarea-width);
+    width: var(--textarea-width);
+    max-height: var(--calendar-height);
+    height: var(--calendar-height);
   }
 
   .Value {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: var(--second-bg-color);
+    height: var(--textarea-height);
+    padding: 10px 20px;
+    margin: 5px -20px;
 
     textarea {
       text-align: center;
-      flex: 1;
       display: block;
-      border: 0.1px solid var(--main-color);
-      border-radius: 20px;
+      border: none;
+      color: var(--main-color);
+      background: inherit;
       font-size: var(--medium-font-size);
       overflow: auto;
       max-width: var(--textarea-width);
@@ -232,24 +226,15 @@ svg {
       max-height: var(--calendar-height);
       height: var(--calendar-height);
     }
-  }
-
-  svg {
-    align-self: center;
-  }
-
-  .Clock {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    height: calc(var(--medium-font-size)*3);
-    margin: 10px;
 
     .Clock-Button {
       max-height: var(--big-font-size);
       max-width: var(--big-font-size);
     }
+  }
+
+  svg {
+    align-self: center;
   }
 }
 
@@ -362,7 +347,11 @@ svg {
   align-items: center;
   justify-content: space-evenly;
 
-  .Decorated-Value {
+  .Daily {
+    background: var(--second-bg-color);
+    margin: -20px;
+    padding: 20px;
+    position: relative;
     display: flex;
     font-size: var(--medium-font-size);
     max-width: var(--textarea-width);
@@ -372,6 +361,7 @@ svg {
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
 
     .Button {
       position: absolute;
@@ -380,6 +370,23 @@ svg {
       max-height: var(--big-font-size);
       width: fit-content;
     }
+  }
+
+  .Decorated{
+    z-index: 10;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    font-size: var(--medium-font-size);
+    filter:blur(20px);
+    background: var(--second-bg-color);
   }
 
   .Submit-Variants {
@@ -441,6 +448,7 @@ svg {
 .Import {
   position: relative;
   height: 100%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -450,10 +458,13 @@ svg {
   textarea {
     flex: 1;
     display: block;
-    border: 0.1px solid var(--main-color);
-    border-radius: 20px;
+    border: none;
     font-size: var(--small-font-size);
     overflow: auto;
+    padding: 10px;
+    margin: 0 -10px;
+    background: var(--second-bg-color);
+    color: var(--main-color);
   }
 
   svg {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Select } from '@components';
+import { Button, Select } from '../components';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg'
 
 type SettingsState = {

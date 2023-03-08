@@ -55,6 +55,7 @@
     max-width: 100%;
     padding: 10px;
     overflow: hidden;
+    display: flex;
   }
 }
 
@@ -134,28 +135,28 @@ svg {
 
 .Decorated {
   position: relative;
-  margin-bottom: 10px;
+  background: var(--second-bg-color);
+  margin: -20px;
+  padding: 20px;
 
   .Decoration {
     z-index: 2;
     position: absolute;
     top: 0;
     left: 0;
-    background: url(../assets/images/noise.svg);
+    background: url(../assets/images/noise-light.jpg)  no-repeat;
     flex: 1;
     max-width: var(--textarea-width);
     width: var(--textarea-width);
     max-height: var(--textarea-height);
     height: var(--textarea-height);
-    border: 0.1px solid var(--main-color);
-    border-radius: 20px;
   }
 
   .Decoration-Background {
     z-index: 1;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 20px;
+    left: 20px;
     background: var(--main-bg-color);
     flex: 1;
     max-width: var(--textarea-width);
@@ -249,11 +250,11 @@ svg {
       max-height: var(--big-font-size);
       max-width: var(--big-font-size);
     }
-
-    .Toggled .svg-border {
-      stroke-width: 2px;
-    }
   }
+}
+
+.Toggled .svg-border {
+  stroke-width: 2px;
 }
 
 
@@ -307,20 +308,49 @@ svg {
   font-size: var(--medium-font-size);
   max-height: 100%;
   height: 100%;
+  width: 100%;
+  max-width: 100%;
 
   .Filter {
     display: flex;
     flex-direction: row;
-    overflow: hidden;
+    background: var(--second-bg-color);
+    padding: 10px 20px;
+    margin: -10px -20px;
 
-    input {
+    .Filter-Input{
       flex: 1;
-      background: none;
-      color: var(--main-color);
-      border: none;
-      border-bottom: 0.1px solid var(--main-color);
-      font-size: var(--medium-font-size);
+      overflow: hidden;
+
+      input {
+        width: 100%;
+        max-width: 100%;
+        background: none;
+        color: var(--main-color);
+        border: none;
+        border-bottom: 0.1px solid var(--main-color);
+        font-size: var(--medium-font-size);
+      }
     }
+  }
+
+  .Overflow {
+    padding: 10px 20px;
+    margin: -10px -20px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+
+    .Card{
+      background: var(--second-bg-color);
+      padding: 10px 20px;
+      margin: -10px -20px;
+      margin-bottom: 20px;
+    }
+
+    .Card:last-of-type{
+      margin-bottom: -10px;
+    }
+
   }
 }
 
@@ -330,11 +360,10 @@ svg {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 
   .Decorated-Value {
     display: flex;
-    border: 0.1px solid var(--main-color);
-    border-radius: 20px;
     font-size: var(--medium-font-size);
     max-width: var(--textarea-width);
     width: var(--textarea-width);
@@ -346,8 +375,8 @@ svg {
 
     .Button {
       position: absolute;
-      bottom: 5px;
-      right: 5px;
+      bottom: 25px;
+      right: 25px;
       max-height: var(--big-font-size);
       width: fit-content;
     }

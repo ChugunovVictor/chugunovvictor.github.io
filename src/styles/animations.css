@@ -37,7 +37,7 @@
   left: 0;
   right: 0;
   z-index: 9999;
-  background-color: var(--main-bg-color);
+  background-color: var(--second-bg-color);
   pointer-events: none;
   opacity: 0;
 }

@@ -29,10 +29,9 @@
  .Card {
      display: flex;
      flex-direction: row;
-     border-bottom: 1px solid var(--main-color);
      align-items: center;
-     max-height: 10vh;
-     height: 10vh;
+     max-height: var(--header-height);
+     height: var(--header-height);
  }
 
  .Card-Text {

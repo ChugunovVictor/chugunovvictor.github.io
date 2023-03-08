@@ -1,7 +1,7 @@
 .Root[attr-theme=Light] {
-    --main-bg-color: #EEE;
-    --second-bg-color: #E6E6E6;
-    --main-color: #000;
+    --main-bg-color: #eeeeee;
+    --second-bg-color: #dddddd;
+    --main-color: #4b4b4b;
     --main-font: Ubuntu;
 
     background: var(--main-bg-color);
@@ -12,14 +12,19 @@
         font-size: var(--small-font-size);
         background: var(--main-bg-color);
         color: var(--main-color);
+    }
+
+    .Decoration {
+        background: url(../assets/images/noise-light.jpg)  no-repeat;
+        background-size: 100% 100%;
     }
 
 }
 
 .Root[attr-theme=Dark] {
-    --main-bg-color: #444;
-    --second-bg-color: #3C3C3C;
-    --main-color: #FFF;
+    --main-bg-color: #b4b4b4;
+    --second-bg-color: #4b4b4b;
+    --main-color: #eeeeee;
     --main-font: Ubuntu;
 
     background: var(--main-bg-color);
@@ -31,5 +36,12 @@
         background: var(--main-bg-color);
         color: var(--main-color);
     }
+
+    .Decoration {
+        background: url(../assets/images/noise-dark.jpg)  no-repeat;
+        background-size: 100% 100%;
+    }
+
+    
 
 }

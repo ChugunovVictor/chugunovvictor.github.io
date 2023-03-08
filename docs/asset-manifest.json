@@ -1,14 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.127e9e90.css",
-    "main.js": "/static/js/main.351ecb35.js",
-    "static/js/787.e82e8434.chunk.js": "/static/js/787.e82e8434.chunk.js",
+    "main.css": "/static/css/main.0ba07c5a.css",
+    "main.js": "/static/js/main.cfcee9b3.js",
+    "static/js/27.2171ce88.chunk.js": "/static/js/27.2171ce88.chunk.js",
     "static/media/Ubuntu-Regular.ttf": "/static/media/Ubuntu-Regular.1cbb1b79a23478cc89ad.ttf",
-    "static/media/MarckScript-Regular.ttf": "/static/media/MarckScript-Regular.5b6142752f3269576cc7.ttf",
     "service-worker.js": "/service-worker.js",
-    "static/media/grid-reference.jpg": "/static/media/grid-reference.187c8cd1bd95e35f7083.jpg",
-    "static/media/Cards.svg": "/static/media/Cards.472ede77be921b3fca808a0a2b7a16a3.svg",
     "static/media/Settings.svg": "/static/media/Settings.f2d4dd38848a9ee0779b69c830f46332.svg",
+    "static/media/Cards.svg": "/static/media/Cards.1e8002698db3b44147526bdfa9bd2ca8.svg",
     "static/media/Archive.svg": "/static/media/Archive.8b4ddcc38b412033e19838867dc4cff1.svg",
     "static/media/NextWeek.svg": "/static/media/NextWeek.5f4b0c4f4a23ae5baa362fcdd66b4af2.svg",
     "static/media/Forward.svg": "/static/media/Forward.d39b85e6a9fc8b1de5c936e7f391dc11.svg",
@@ -23,13 +21,10 @@
     "static/media/Home.svg": "/static/media/Home.7b8b37f1889128b5030237c8ccbb7af9.svg",
     "static/media/Sound.svg": "/static/media/Sound.e0021ec3c6ad110af975ef51c35353dc.svg",
     "index.html": "/index.html",
-    "static/media/noise.svg": "/static/media/noise.79a9a1a9a772eac30449.svg",
-    "main.127e9e90.css.map": "/static/css/main.127e9e90.css.map",
-    "main.351ecb35.js.map": "/static/js/main.351ecb35.js.map",
-    "787.e82e8434.chunk.js.map": "/static/js/787.e82e8434.chunk.js.map"
+    "static/media/noise.svg": "/static/media/noise.79a9a1a9a772eac30449.svg"
   },
   "entrypoints": [
-    "static/css/main.127e9e90.css",
-    "static/js/main.351ecb35.js"
+    "static/css/main.0ba07c5a.css",
+    "static/js/main.cfcee9b3.js"
   ]
 }

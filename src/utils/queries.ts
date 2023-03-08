@@ -14,8 +14,8 @@ export const useSettingsQuery = () => useLiveQuery(() => db.settings.toArray());
 export const useCardsQuery = () => useLiveQuery(() => db.cards.toArray());
 export const useArchiveQuery = () => useLiveQuery(() => db.archive.toArray());
 
-export const useCardsArchiveQuery = (isArchive: boolean) => useLiveQuery(() => isArchive ? db.archive.toArray(): db.cards.toArray());
-
+export const cardsQuery = () => liveQuery(() => db.cards.toArray());
+export const archiveQuery = () => liveQuery(() => db.archive.toArray());
 
 export const useCardInfoQuery = (id: string) => useLiveQuery(
     () => db.cards.filter(e => e.value == id).first()

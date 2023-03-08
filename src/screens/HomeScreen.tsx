@@ -6,7 +6,7 @@ import { ReactComponent as NextDay } from '../assets/images/Ubuntu/NextDay.svg';
 import { ReactComponent as NextWeek } from '../assets/images/Ubuntu/NextWeek.svg';
 import { settingQuery, dailyQuery } from '../utils/queries';
 
-import Daily from '@components';
+import { Daily } from '../components';
 import { Flip } from '../model/Flip';
 import { db } from '../utils/db';
 

@@ -7,22 +7,27 @@ import { ReactComponent as Archive } from '../assets/images/Ubuntu/Archive.svg'
 import { ReactComponent as Cards } from '../assets/images/Ubuntu/Cards.svg'
 
 import { db } from '../utils/db'
-import { getDate } from '../utils/other'
+import { addToSession, deleteFromSession, getDate } from '../utils/other'
 
-function archive_(card: ICard) {
+
+
+async function archive_(card: ICard) {
   db.cards.delete(card.value)
-  const arcived = { value: card.value, translation: card.translation }
-  db.archive.add(arcived)
+  deleteFromSession(card)
+  const archived = { value: card.value, translation: card.translation }
+  db.archive.add(archived)
 }
 
-function _delete_(value: string) {
-  db.cards.delete(value)
-  db.archive.delete(value)
+async function _delete_(card: ICard) {
+  db.cards.delete(card.value)
+  db.archive.delete(card.value)
+  deleteFromSession(card)
 }
 
 function restore(card: ICard) {
   db.archive.delete(card.value)
   db.cards.add(card)
+  addToSession(card)
 }
 
 type Props = { card: ICard, isArchive: boolean }
@@ -42,14 +47,14 @@ const Card: React.FC<Props> = (props: Props) => {
           {props.isArchive ?
             <>
               <Cards className='Button' onClick={() => restore(props.card)} />
-              <Delete className='Button' onClick={() => _delete_(props.card.value)} />
+              <Delete className='Button' onClick={() => _delete_(props.card)} />
             </>
             :
             <>
               <Button path={`/edit/${props.card.value}`}>
-               <Edit className='Button'/><></>
+                <Edit className='Button' /><></>
               </Button>
-              <Delete className='Button' onClick={() => _delete_(props.card.value)} />
+              <Delete className='Button' onClick={() => _delete_(props.card)} />
               <Archive className='Button' onClick={() => archive_(props.card)} />
             </>
           }

@@ -46,7 +46,6 @@ class ImportScreen extends React.Component<ImportProps>{
     }
 
     async import_() {
-        console.log(".", this.state.value)
         const candidate = JSON.parse(this.state.value) as ImportMessage
 
         importDataBase(candidate.cards, candidate.settings, candidate.archive)

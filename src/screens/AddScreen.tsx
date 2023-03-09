@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactComponent as Ok } from '../assets/images/Ubuntu/Ok.svg';
-import { db } from '../utils/db';
+import { addToSession } from '../utils/other';
+import { upsertCard } from '../utils/queries';
 
 type AddScreenProps = {
   setFooterButtons: (e: JSX.Element) => void
@@ -29,7 +30,10 @@ class AddScreen extends React.Component<AddScreenProps>{
 
     try {
       if (this.state.value && this.state.translation) {
-        await db.cards.add({ value: this.state.value, translation: this.state.translation })
+        const value = { value: this.state.value, translation: this.state.translation }
+        await upsertCard(value, false)
+
+        addToSession(value)
 
         this.setState({
           value: "", translation: ""

@@ -4,6 +4,10 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { getDate } from './other';
 import { liveQuery } from 'dexie';
 import { Setting } from '../model/Setting';
+import { Session } from '../model/Session';
+
+export const upsertSession = (value: Session, update: boolean) => update ? db.sessions.put(value) : db.sessions.add(value)
+export const getCurrentSession = () => db.sessions.get(getDate(new Date()))
 
 export const upsertCard = (value: Card, update: boolean) => update ? db.cards.put(value) : db.cards.add(value)
 export const deleteCard = (id: string) => db.cards.delete(id)
@@ -49,4 +53,6 @@ export const importDataBase = (cards?: Card[], settings?: Setting[], archive?: C
         db.archive.clear()
         db.archive.bulkAdd(archive)
     }
+
+    db.sessions.clear()
 }

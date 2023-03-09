@@ -7,6 +7,7 @@ import { cardInfoQuery, deleteCard, upsertCard } from '../utils/queries';
 
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { addToSession, deleteFromSession, getDate } from '../utils/other';
 
 type IdParamProps = { onMount: (value: string) => void }
 
@@ -90,6 +91,12 @@ class EditScreen extends React.Component<EditScreenProps>{
 
         await deleteCard(this.state.initialValue)
         await upsertCard(card, false)
+
+        if (this.state.useNextAt && getDate(this.state.nextAt) != getDate(new Date())) {
+          deleteFromSession(card)
+        } else {
+          addToSession(card)
+        }
 
         this.setState({ navigate: true })
       }

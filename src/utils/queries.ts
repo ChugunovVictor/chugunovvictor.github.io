@@ -32,6 +32,10 @@ export const dailyQuery = () => liveQuery(
       .toArray()
 );
 
+export const restoreSessionQuery = () => liveQuery(
+    () => db.sessions.filter(e => e.date === getDate(new Date())).toArray()
+);
+
 export const importDataBase = (cards?: Card[], settings?: Setting[], archive?: Card[]) => {
     if (cards) {
         db.cards.clear()

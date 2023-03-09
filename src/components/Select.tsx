@@ -48,10 +48,16 @@ const Select: React.FC<Props> = (props: Props) => {
     {e.name}
   </div>
 
+  const value = props.isLanguage ?
+    (props.items as Language[]).filter(e => e.signature == defaultValue?.value)[0]?.name :
+    defaultValue?.value
+
+  console.log(value)
+
   return (
     <div className='Select'>
       <div className='Select-Value' onClick={() => setOpen(!open)}>{
-        props.isLanguage ? (props.items as Language[]).filter(e => e.signature == defaultValue?.value)[0]?.name : defaultValue?.value
+        value ? value : <>&nbsp;</>
       }</div>
       {open &&
         <div className='Select-Options'>

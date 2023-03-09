@@ -9,13 +9,19 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { Header, Footer } from './components';
 import { memoRoutes } from './utils/routes'
 import { Fade } from './components'
+import { getDate } from './utils/other';
 
-window.screen.orientation.lock("portrait")
+try{
+  window.screen.orientation.lock("portrait")
+} catch {}
 
 const Root = () => {
   const theme = useLiveQuery(
     () => db.settings.where('key').equals("theme").first()
   );
+  const clear = useLiveQuery(
+    () => db.sessions.filter(e => e.date !== getDate(new Date())).delete()
+);
 
   const [footerButtons, setFooterButtons] = useState<JSX.Element>()
 

@@ -19,15 +19,15 @@ const Daily = (props: DailyProps) => {
     <>
       <div className="Daily">
         {(props.flip.value && !props.show) && <div className={decorationClass} onClick={() => props.onShow()}>
-          {props.flip.card.value}
+          {props.flip.card.value.split("\n").map(e => <div>{e}</div>)}
         </div>}
-        {props.flip.card.value}
+        {props.flip.card.value.split("\n").map(e => <div>{e}</div>)}
       </div>
       <div className="Daily">
         {(!props.flip.value && !props.show) && <div className={decorationClass} onClick={() => props.onShow()}>
-          {props.flip.card.translation}
+          {props.flip.card.translation.split("\n").map(e => <div>{e}</div>)}
         </div>}
-        {props.flip.card.translation}
+        {props.flip.card.translation.split("\n").map(e => <div>{e}</div>)}
         <Sound className='Button' onClick={() => speak(props.flip.card.translation, voice)} />
       </div>
     </>

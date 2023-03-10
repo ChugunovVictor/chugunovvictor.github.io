@@ -376,6 +376,7 @@ svg {
     align-items: center;
     text-align: center;
     overflow: hidden;
+    flex-direction: column;
 
     .Button {
       position: absolute;
@@ -401,6 +402,8 @@ svg {
     font-size: var(--medium-font-size);
     filter:blur(20px);
     background: var(--second-bg-color);
+    flex-direction: column;
+
   }
 
   .Submit-Variants {
